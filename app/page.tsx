@@ -34,9 +34,9 @@ interface User {
 }
 
 // Define the shape of the object passed from the Login component
-type LoginDetails = {
+type LoginDetails = ({
   status: 'success';
-} & User | { // Combines the User type for the success case
+} & User) | {
   status: 'denied';
 };
 
@@ -44,7 +44,7 @@ type LoginDetails = {
 // Manages state and orchestrates the quiz flow.
 export default function App() {
   const [accessDenied, setAccessDenied] = useState(false);
-  const [user, setUser] = useState(null);
+   const [user, setUser] = useState<User | null>(null);
   const [userEntered, setuserEntered] = useState(false);
   const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
