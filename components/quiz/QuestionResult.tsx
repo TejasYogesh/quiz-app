@@ -38,8 +38,7 @@ export const QuizResult = ({ score, onFeedbackSubmit }: QuizResultProps) => {
     return (
         <div className="relative h-full flex flex-col justify-center">
             <form onSubmit={handleSubmit} className="lg:shadow-2xl lg:rounded-3xl lg:p-10">
-                <h1 className="text-3xl font-bold mb-2">Quiz Complete!</h1>
-                <p className="text-lg text-gray-600 mb-8">Your final score is: <span className="font-bold text-blue-500">{score}</span></p>
+               
 
                 <h2 className="text-2xl mb-4">Would love to hear <span className="text-blue-400 font-bold"> your feedback!</span></h2>
                 <label htmlFor="feedback" className="block text-md font-medium text-gray-700 mb-4">Do you want us to create quizzes similar to this?</label>
@@ -67,7 +66,7 @@ export const QuizResult = ({ score, onFeedbackSubmit }: QuizResultProps) => {
                 </button>
             </form>
 
-            <div className="absolute bottom-0 left-0 right-0">
+            <div className="absolute bottom-[-100px]">
                 <Footer/>
             </div>
         </div>

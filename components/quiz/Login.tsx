@@ -1,13 +1,31 @@
 import { useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
-export const Login = ({ onLogin }) => {
+
+
+// 1. Define the shape of the object that onLogin sends
+type LoginDetails = {
+  status: 'success';
+  name: string;
+  college: string;
+  usn: string;
+} | {
+  status: 'denied';
+};
+
+// 2. Define the props for the Login component
+interface LoginProps {
+  onLogin: (details: LoginDetails) => void;
+}
+
+
+export const Login = ({ onLogin }: LoginProps) => {
     const [name, setName] = useState('');
     const [college, setCollege] = useState('');
     const [usn, setUsn] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         if (!name.trim() || !college.trim() || !usn.trim()) {
             setError("Please fill in all fields.");
@@ -49,7 +67,7 @@ export const Login = ({ onLogin }) => {
                 }
             } catch (error) {
                 setError('An error occurred. Please try again.');
-                console.error('Supabase error:', error.message);
+                console.error('Supabase error:');
             }
         };
 
