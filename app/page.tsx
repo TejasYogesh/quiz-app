@@ -1,103 +1,196 @@
-import Image from "next/image";
+'use client'
+import { useState, useEffect, useCallback } from "react";
+import { mockQuestions } from "@/data/questionModule";
+import { Question } from '../components/quiz/Question'
+import { QuizResult } from "@/components/quiz/QuestionResult";
+import QuizIntro from "@/components/quiz/QuizIntro";
+import { AccessDenied } from "@/components/quiz/AccessDenied";
+import { Login } from "@/components/quiz/Login"
+import { supabase } from "@/lib/supabaseClient";
+import { Loading } from "@/components/quiz/Loading";
 
-export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+// import Footer from "@/components/quiz/Footer";
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+// interface QuizCompletionParams {
+//   finalScore: number;
+// }
+
+
+// --- MAIN APP COMPONENT ---
+// Manages state and orchestrates the quiz flow.
+export default function App() {
+  const [accessDenied, setAccessDenied] = useState(false);
+  const [user, setUser] = useState(null);
+  const [userEntered, setuserEntered] = useState(false);
+  const [questions, setQuestions] = useState([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [score, setScore] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(10);
+  const [quizState, setQuizState] = useState('intro'); // intro, loading, active, finished
+  const [hasAttempted, setHasAttempted] = useState(false);
+  const [feedback, setFeedbackGiven] = useState(false);
+  // const [isReload, setIsReload] = useState(false);
+
+
+
+   const [isFlaggedForMalpractice, setIsFlaggedForMalpractice] = useState(false);
+   
+  useEffect(() => {
+
+
+    // Check if quiz was previously attempted
+    const attempted = localStorage.getItem('quizAttempted');
+    const feedback = localStorage.getItem('feedbackSubmitted');
+    const userEntered = localStorage.getItem('userEntered')
+    setHasAttempted(attempted === 'true');
+    setFeedbackGiven(feedback === 'true');
+    setuserEntered(userEntered === 'true');
+  }, []);
+
+
+
+
+  useEffect(() => {
+    if (quizState !== 'loading') return;
+
+    const fetchQuestions = async () => {
+      const shuffledQuestions = [...mockQuestions].sort(() => Math.random() - 0.5);
+      const selectedQuestions = shuffledQuestions.slice(0, 10);
+
+      setTimeout(() => {
+        // 3. Set the 10 selected questions into state
+        setQuestions(selectedQuestions);
+        setQuizState('active');
+      }, 10000);
+    };
+
+    fetchQuestions();
+  }, [quizState]);
+
+  const handleStartQuiz = () => {
+    setQuizState('loading');
+  };
+
+  const handleNextQuestion = useCallback(() => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(prevIndex => prevIndex + 1);
+      setTimeLeft(10);
+    } else {
+      setQuizState('finished');
+      localStorage.setItem('quizAttempted', 'true');
+      setHasAttempted(true);
+      console.log(`Quiz finished! Final score (hidden from user): ${score}`);
+    }
+  }, [currentQuestionIndex, questions.length, score]);
+
+  useEffect(() => {
+    if (quizState !== 'active') return;
+    if (timeLeft === 0) {
+      handleNextQuestion();
+      return;
+    }
+    const timer = setInterval(() => setTimeLeft(prev => prev - 1), 1000);
+    return () => clearInterval(timer);
+  }, [timeLeft, quizState, handleNextQuestion]);
+
+
+
+  const handleLogin = (loginDetails) => {
+    if (loginDetails.status === 'denied') {
+      setAccessDenied(true);
+    } else {
+      setUser(loginDetails);
+      localStorage.setItem('userEntered', 'true');
+      console.log("User Logged In:", loginDetails);
+    }
+  };
+
+  interface QuizOption {
+    isCorrect: boolean;
+  }
+
+  const handleAnswer = (option: QuizOption) => {
+    if (option.isCorrect) {
+      setScore(prevScore => prevScore + 1);
+    }
+    setTimeout(() => handleNextQuestion(), 1000);
+  };
+  const handleFeedbackSubmit = async (feedback: string, userDetails: string, finalScore: number) => {
+    console.log('Feedback submitted:', feedback);
+    localStorage.setItem('feedbackSubmitted', 'true');
+    if (!user || !user.usn) {
+      console.error("User details not found. Cannot update score.");
+      return;
+    }
+
+
+    // Update state to immediately show the AccessDenied page after feedback
+    setHasAttempted(true);
+    const { data, error } = await supabase
+      .from('students')
+      .update({ score: score, feedback: feedback })     // Uses the 'score' from state
+      .eq('usn', user.usn)          // Specifies WHICH student to update
+      .select();
+
+    if (error) {
+      console.error('Error updating score:', error);
+    } else {
+      console.log('Score updated successfully:', data);
+      localStorage.setItem('feedbackSubmitted', 'true');
+      setHasAttempted(true);
+    }
+  };
+  const renderContent = () => {
+    switch (quizState) {
+      case 'intro':
+        return <QuizIntro onStart={handleStartQuiz} />;
+      case 'loading':
+        return <Loading />
+      case 'active':
+        return (
+          <Question
+            question={questions[currentQuestionIndex]}
+            onAnswer={handleAnswer}
+            questionNumber={currentQuestionIndex + 1}
+            totalQuestions={questions.length}
+            timeLeft={timeLeft}
+          />
+        );
+      case 'finished':
+        return <QuizResult score={score} onFeedbackSubmit={handleFeedbackSubmit} />;
+      default:
+        return null;
+    }
+  };
+
+  if (accessDenied) {
+    return <div className="p-4">
+      <AccessDenied />
+    </div>;
+  }
+
+  if (!user) {
+    return (
+      <div className="lg:min-h-screen flex items-center justify-center p-4 font-sans">
+        <div className="lg:rounded-2xl lg:shadow-2xl p-6 md:p-10 w-full max-w-3xl flex flex-col justify-center">
+          <Login onLogin={handleLogin} />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+    )
+  }
+
+  // if (hasAttempted && feedback && userEntered) {
+  //   return (
+  //     <AccessDenied />
+  //   );
+  // }
+
+  return (
+    <div className="lg:min-h-screen flex items-center justify-center p-4 font-sans">
+      <div className="bg-white rounded-2xl p-4 lg:p-6 md:p-10 w-full max-w-3xl h-[85vh] lg:h-full">
+        {renderContent()}
+        {/* <Footer/> */}
+      </div>
     </div>
   );
 }
