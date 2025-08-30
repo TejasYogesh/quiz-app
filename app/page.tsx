@@ -14,7 +14,24 @@ import { Loading } from "@/components/quiz/Loading";
 // interface QuizCompletionParams {
 //   finalScore: number;
 // }
+  interface Option {
+  text: string;
+  isCorrect: boolean;
+}
 
+  interface QuestionType {
+  question_text: string;
+  options: Option[];
+}
+
+type LoginDetails = {
+  status: 'success';
+  name: string;
+  college: string;
+  usn: string;
+} | {
+  status: 'denied';
+};
 
 // --- MAIN APP COMPONENT ---
 // Manages state and orchestrates the quiz flow.
@@ -31,15 +48,8 @@ export default function App() {
   const [feedback, setFeedbackGiven] = useState(false);
   // const [isReload, setIsReload] = useState(false);
 
-  interface Option {
-  text: string;
-  isCorrect: boolean;
-}
 
-  interface QuestionType {
-  question_text: string;
-  options: Option[];
-}
+
   useEffect(() => {
 
 
@@ -100,15 +110,18 @@ export default function App() {
 
 
 
-  const handleLogin = (loginDetails) => {
-    if (loginDetails.status === 'denied') {
-      setAccessDenied(true);
-    } else {
-      setUser(loginDetails);
-      localStorage.setItem('userEntered', 'true');
-      console.log("User Logged In:", loginDetails);
-    }
-  };
+// --- Update your handleLogin function to use this type ---
+const handleLogin = (loginDetails: LoginDetails) => {
+  if (loginDetails.status === 'denied') {
+    setAccessDenied(true);
+  } else {
+    // Because of our type definition, TypeScript now knows that if the
+    // status is 'success', the object also contains name, college, and usn.
+    setUser(loginDetails);
+    localStorage.setItem('userEntered', 'true');
+    console.log("User Logged In:", loginDetails);
+  }
+};
 
   interface QuizOption {
     isCorrect: boolean;
