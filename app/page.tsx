@@ -140,31 +140,28 @@ const handleLogin = (loginDetails: LoginDetails) => {
     }
     setTimeout(() => handleNextQuestion(), 1000);
   };
-  const handleFeedbackSubmit = async (feedback: string, userDetails: string, finalScore: number) => {
-    console.log('Feedback submitted:', feedback);
-    localStorage.setItem('feedbackSubmitted', 'true');
-    if (!user || !user.usn) {
-      console.error("User details not found. Cannot update score.");
-      return;
-    }
 
+const handleFeedbackSubmit = async (feedback: string) => {
+  console.log('Feedback submitted:', feedback);
+  localStorage.setItem('feedbackSubmitted', 'true');
 
-    // Update state to immediately show the AccessDenied page after feedback
-    setHasAttempted(true);
-    const { data, error } = await supabase
-      .from('students')
-      .update({ score: score, feedback: feedback })     // Uses the 'score' from state
-      .eq('usn', user.usn)          // Specifies WHICH student to update
-      .select();
+  if (!user || !user.usn) {
+    console.error("User details not found. Cannot update score.");
+    return;
+  }
 
-    if (error) {
-      console.error('Error updating score:', error);
-    } else {
-      console.log('Score updated successfully:', data);
-      localStorage.setItem('feedbackSubmitted', 'true');
-      setHasAttempted(true);
-    }
-  };
+  const { data, error } = await supabase
+    .from('students')
+    .update({ score: score, feedback: feedback }) // Use 'score' and 'feedback' from state/args
+    .eq('usn', user.usn)                          // Use 'user' from state
+    .select();
+
+  if (error) {
+    console.error('Error updating score:', error);
+  } else {
+    console.log('Score updated successfully:', data);
+  }
+};
   const renderContent = () => {
     switch (quizState) {
       case 'intro':
