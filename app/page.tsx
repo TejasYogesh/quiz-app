@@ -14,22 +14,29 @@ import { Loading } from "@/components/quiz/Loading";
 // interface QuizCompletionParams {
 //   finalScore: number;
 // }
-  interface Option {
+
+// --- Define all your data structures here ---
+interface Option {
   text: string;
   isCorrect: boolean;
 }
 
-  interface QuestionType {
+interface QuestionType {
   question_text: string;
   options: Option[];
 }
 
-type LoginDetails = {
-  status: 'success';
+// Define the shape of a logged-in user object
+interface User {
   name: string;
   college: string;
   usn: string;
-} | {
+}
+
+// Define the shape of the object passed from the Login component
+type LoginDetails = {
+  status: 'success';
+} & User | { // Combines the User type for the success case
   status: 'denied';
 };
 
