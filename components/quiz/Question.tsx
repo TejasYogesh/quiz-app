@@ -21,7 +21,7 @@ interface QuestionProps {
     usn: string;
 }
 
-export const Question = ({ question, onAnswer, questionNumber, totalQuestions, timeLeft, usn }: QuestionProps) => {
+export const Question = ({ question, onAnswer, questionNumber, totalQuestions, timeLeft ,usn}: QuestionProps) => {
     const [selectedOption, setSelectedOption] = useState<Option | null>(null);
 
     // Reset selection when question changes

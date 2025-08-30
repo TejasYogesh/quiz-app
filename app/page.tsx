@@ -179,6 +179,7 @@ const handleLogin = (loginDetails: LoginDetails) => {
             questionNumber={currentQuestionIndex + 1}
             totalQuestions={questions.length}
             timeLeft={timeLeft}
+            usn={user!.usn}
           />
         );
       case 'finished':
