@@ -22,7 +22,7 @@ export default function App() {
   const [accessDenied, setAccessDenied] = useState(false);
   const [user, setUser] = useState(null);
   const [userEntered, setuserEntered] = useState(false);
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(10);
@@ -31,10 +31,15 @@ export default function App() {
   const [feedback, setFeedbackGiven] = useState(false);
   // const [isReload, setIsReload] = useState(false);
 
+  interface Option {
+  text: string;
+  isCorrect: boolean;
+}
 
-
-   const [isFlaggedForMalpractice, setIsFlaggedForMalpractice] = useState(false);
-   
+  interface QuestionType {
+  question_text: string;
+  options: Option[];
+}
   useEffect(() => {
 
 
