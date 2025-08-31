@@ -8,7 +8,7 @@ import { AccessDenied } from "@/components/quiz/AccessDenied";
 import { Login } from "@/components/quiz/Login"
 import { supabase } from "@/lib/supabaseClient";
 import { Loading } from "@/components/quiz/Loading";
-
+import emailjs from "@emailjs/browser"
 // import Footer from "@/components/quiz/Footer";
 
 // interface QuizCompletionParams {
@@ -31,6 +31,7 @@ interface User {
   name: string;
   college: string;
   usn: string;
+  email: string;
 }
 
 // Define the shape of the object passed from the Login component
@@ -44,7 +45,7 @@ type LoginDetails = ({
 // Manages state and orchestrates the quiz flow.
 export default function App() {
   const [accessDenied, setAccessDenied] = useState(false);
-   const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [userEntered, setuserEntered] = useState(false);
   const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -117,18 +118,18 @@ export default function App() {
 
 
 
-// --- Update your handleLogin function to use this type ---
-const handleLogin = (loginDetails: LoginDetails) => {
-  if (loginDetails.status === 'denied') {
-    setAccessDenied(true);
-  } else {
-    // Because of our type definition, TypeScript now knows that if the
-    // status is 'success', the object also contains name, college, and usn.
-    setUser(loginDetails);
-    localStorage.setItem('userEntered', 'true');
-    console.log("User Logged In:", loginDetails);
-  }
-};
+  // --- Update your handleLogin function to use this type ---
+  const handleLogin = (loginDetails: LoginDetails) => {
+    if (loginDetails.status === 'denied') {
+      setAccessDenied(true);
+    } else {
+      // Because of our type definition, TypeScript now knows that if the
+      // status is 'success', the object also contains name, college, and usn.
+      setUser(loginDetails);
+      localStorage.setItem('userEntered', 'true');
+      console.log("User Logged In:", loginDetails);
+    }
+  };
 
   interface QuizOption {
     isCorrect: boolean;
@@ -141,27 +142,46 @@ const handleLogin = (loginDetails: LoginDetails) => {
     setTimeout(() => handleNextQuestion(), 1000);
   };
 
-const handleFeedbackSubmit = async (feedback: string) => {
-  console.log('Feedback submitted:', feedback);
-  localStorage.setItem('feedbackSubmitted', 'true');
+  const handleFeedbackSubmit = async (feedback: string) => {
+    console.log('Feedback submitted:', feedback);
+    localStorage.setItem('feedbackSubmitted', 'true');
 
-  if (!user || !user.usn) {
-    console.error("User details not found. Cannot update score.");
-    return;
-  }
+    if (!user || !user.usn) {
+      console.error("User details not found. Cannot update score.");
+      return;
+    }
 
-  const { data, error } = await supabase
-    .from('students')
-    .update({ score: score, feedback: feedback }) // Use 'score' and 'feedback' from state/args
-    .eq('usn', user.usn)                          // Use 'user' from state
-    .select();
+    const { data, error } = await supabase
+      .from('students')
+      .update({ score: score, feedback: feedback }) // Use 'score' and 'feedback' from state/args
+      .eq('usn', user.usn)                          // Use 'user' from state
+      .select();
 
-  if (error) {
-    console.error('Error updating score:', error);
-  } else {
-    console.log('Score updated successfully:', data);
-  }
-};
+    if (error) {
+      console.error('Error updating score:', error);
+    } else {
+      console.log('Score updated successfully:', data);
+
+    }
+    const templateParams = {
+      to_name: data?.[0]?.name ?? user.name,
+      score: score.toString,
+      to_email: user.email,
+    };
+
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        templateParams,
+        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! }
+      );
+      console.log('EmailJS Success: Thank you email sent.');
+    } catch (emailError) {
+      console.error('EmailJS Error:', emailError);
+    }
+
+  };
   const renderContent = () => {
     switch (quizState) {
       case 'intro':

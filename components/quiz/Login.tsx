@@ -4,17 +4,18 @@ import { supabase } from "@/lib/supabaseClient";
 
 // 1. Define the shape of the object that onLogin sends
 type LoginDetails = {
-  status: 'success';
-  name: string;
-  college: string;
-  usn: string;
+    status: 'success';
+    name: string;
+    college: string;
+    usn: string;
+    email: string
 } | {
-  status: 'denied';
+    status: 'denied';
 };
 
 // 2. Define the props for the Login component
 interface LoginProps {
-  onLogin: (details: LoginDetails) => void;
+    onLogin: (details: LoginDetails) => void;
 }
 
 
@@ -24,10 +25,12 @@ export const Login = ({ onLogin }: LoginProps) => {
     const [usn, setUsn] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
+    const [email, setEmail] = useState('');
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
+        console.log(email);
         e.preventDefault();
-        if (!name.trim() || !college.trim() || !usn.trim()) {
+        if (!name.trim() || !college.trim() || !usn.trim() || !email.trim()) {
             setError("Please fill in all fields.");
             return;
         }
@@ -55,13 +58,13 @@ export const Login = ({ onLogin }: LoginProps) => {
                 // 3. If the user does not exist, insert the new record
                 const { data, error: insertError } = await supabase
                     .from('students')
-                    .insert([{ name, college, usn }])
+                    .insert([{ name, college, usn, email }])
                     .select();
 
                 if (insertError) throw insertError;
 
                 if (data && data.length > 0) {
-                    onLogin({ name, college, usn, status: 'success' });
+                    onLogin({ name, college, usn, email, status: 'success' });
                 } else {
                     setError('Failed to save details. No data returned.');
                 }
@@ -110,7 +113,16 @@ export const Login = ({ onLogin }: LoginProps) => {
                     placeholder="USN Number"
                     required
                 />
-                
+
+                <input
+                    type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full p-3 rounded-xl border-3 border-gray-600 text-black placeholder-black-400 focus:outline-none focus:border-blue-500"
+                    placeholder="Email ID"
+                    required
+                />
+
                 <button
                     type="submit"
                     disabled={isLoading}
