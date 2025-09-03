@@ -230,7 +230,7 @@ export default function App() {
 
   return (
     <div className="lg:min-h-screen flex items-center justify-center p-4 font-sans">
-      <div className="bg-white rounded-2xl p-4 lg:p-6 md:p-10 w-full max-w-3xl h-[85vh] lg:h-full">
+      <div className="bg-white rounded-2xl lg:p-6 md:p-10 w-full max-w-3xl h-[85vh] lg:h-full">
         {renderContent()}
         {/* <Footer/> */}
       </div>

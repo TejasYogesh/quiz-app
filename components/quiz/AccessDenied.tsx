@@ -74,8 +74,8 @@ export const AccessDenied = () => {
                                 <CalendarIcon className="w-6 h-6 text-blue-600 dark:text-blue-300" />
                             </div>
                             <div>
-                                <p className="text-xl font-bold text-blue-800 dark:text-blue-200">Bridging Generations</p>
-                                <p className="text-md font-bold text-blue-800 dark:text-blue-200">7th Episode with XYZ</p>
+                                <p className="text-lg font-bold text-blue-800 dark:text-blue-200">Bridging Generations</p>
+                                <p className="text-sm font-bold text-blue-800 dark:text-blue-200">7th Episode with XYZ</p>
                                 <p className="text-sm text-gray-600 dark:text-gray-300">This Saturday @ 10:00 AM</p>
                                 <button className="bg-blue-500 text-white p-2 mt-4 rounded-md cursor-pointer transition-transform transform hover:-translate-y-1 duration-300 ease-in-out">Join here</button>
                             </div>
