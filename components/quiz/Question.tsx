@@ -70,7 +70,7 @@ export const Question = ({ question, onAnswer, questionNumber, totalQuestions, t
                     const isSelected = selectedOption === option;
                     let buttonClass = "bg-white border-2 border-gray-300 text-gray-800";
                     if (isSelected) {
-                        buttonClass = option.isCorrect ? "bg-green-500 border-green-500 text-white" : "bg-red-500 border-red-500 text-white";
+                        buttonClass = "bg-blue-500 border-blue-500 text-white";
                     }
 
                     return (
