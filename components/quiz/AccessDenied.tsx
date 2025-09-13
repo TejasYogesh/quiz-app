@@ -43,8 +43,9 @@ export const AccessDenied = () => {
                 <p className="text-md text-gray-500 dark:text-gray-400 mb-6">Thank you for your participation.</p>
 
                 {/* Link Button */}
-                <a
-                    href="https://www.instagram.com/me_riise/"
+                <div className="flex flex-row lg:flex-row justify-center gap-4 mb-6">
+                    <a
+                    href="meriise.org"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-transform transform hover:-translate-y-1 duration-300 ease-in-out"
@@ -52,9 +53,19 @@ export const AccessDenied = () => {
                     Visit meriise.org
                 </a>
 
+                 <a
+                    href="https://www.instagram.com/me_riise/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-transform transform hover:-translate-y-1 duration-300 ease-in-out"
+                >
+                    Visit instagram
+                </a>
+                </div>
+
                
                  <p className="text-sm text-gray-600 dark:text-gray-300 my-6">
-                    Results & answers will be displayed in the ME-RIISE instagram official page.
+                    Your scores will be updated and winners will be announced at end of the semester and stay tuned for next quiz session!
                 </p>
 
                 <p className="text-xs text-gray-400 dark:text-gray-500 mt-2 bg-yellow-100 dark:bg-gray-700 px-3 py-1 rounded-full inline-block">
@@ -74,10 +85,10 @@ export const AccessDenied = () => {
                                 <CalendarIcon className="w-6 h-6 text-blue-600 dark:text-blue-300" />
                             </div>
                             <div>
-                                <p className="text-lg font-bold text-blue-800 dark:text-blue-200">Bridging Generations</p>
-                                <p className="text-sm font-bold text-blue-800 dark:text-blue-200">7th Episode with XYZ</p>
-                                <p className="text-sm text-gray-600 dark:text-gray-300">This Saturday @ 10:00 AM</p>
-                                <button className="bg-blue-500 text-white p-2 mt-4 rounded-md cursor-pointer transition-transform transform hover:-translate-y-1 duration-300 ease-in-out">Join here</button>
+                                <p className="text-lg font-bold text-blue-800 dark:text-blue-200">MCE-Internal SIH 2025</p>
+                                <p className="text-sm font-bold text-blue-800 dark:text-blue-200">INFUSION 4.0</p>
+                                <p className="text-sm text-gray-600 dark:text-gray-300">Smart India Hackathon</p>
+                                <button className="bg-blue-500 text-white p-2 text-sm mt-4 rounded-md cursor-pointer transition-transform transform hover:-translate-y-1 duration-300 ease-in-out"><a href="https://forms.gle/JnSPQ1NDezjjvJLW8">Register here</a></button>
                             </div>
                         </div>
                         

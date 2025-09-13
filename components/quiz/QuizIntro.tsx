@@ -24,7 +24,7 @@ const QuizIntro = ({ onStart }: { onStart: () => void }) => {
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
             </div>
             <div>
-              <p className="font-bold text-lg md:text-2xl lg:text-2xl">10 Questions</p>
+              <p className="font-bold text-lg md:text-2xl lg:text-2xl">15 Questions</p>
               <p className="text-gray-600 text-sm">MCQ Type</p>
             </div>
           </div>
@@ -44,7 +44,7 @@ const QuizIntro = ({ onStart }: { onStart: () => void }) => {
           <h2 className="font-bold text-xl mb-4">Before you start</h2>
           <ul className="list-disc list-inside space-y-3 text-gray-700">
             <li className='text-sm lg:text-lg'>You must complete this test in one session - make sure your internet is reliable.</li>
-            <li className='text-sm lg:text-lg'>Results and answers will be announced in the offical meriise instagram page.</li>
+            <li className='text-sm lg:text-lg'>Results will be announced at the end of the semester.</li>
             {/* <li>The more you give the correct answer the more chance to win the badge.</li> */}
             <li className='text-sm lg:text-lg'>Do not try to copy, Don&apos;t use AI for answering this questions, Instead use your brain.</li>
           </ul>

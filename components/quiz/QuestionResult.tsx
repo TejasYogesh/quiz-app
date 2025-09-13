@@ -66,9 +66,9 @@ export const QuizResult = ({ score, onFeedbackSubmit }: QuizResultProps) => {
                 </button>
             </form>
 
-            <div className="absolute bottom-[-50px]">
+            {/* <div className="absolute bottom-[-50px]">
                 <Footer/>
-            </div>
+            </div> */}
         </div>
     );
 };

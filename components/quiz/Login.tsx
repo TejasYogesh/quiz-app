@@ -86,7 +86,7 @@ export const Login = ({ onLogin }: LoginProps) => {
 
     return (
         <div className="text-white">
-            <h1 className="text-4xl font-bold mb-6 text-black">Details.</h1>
+            <h1 className="text-4xl font-bold mb-6 text-black">Vision Hunt.</h1>
             <p className="text-lg text-gray-400 mb-8">Please enter your details to begin the quiz.</p>
             <form onSubmit={handleSubmit} className="max-w-md mx-auto flex flex-col gap-4">
                 <input
@@ -141,6 +141,7 @@ export const Login = ({ onLogin }: LoginProps) => {
                     )}
                 </button>
                 <p className="text-gray-400">*Once proceeding cannot go back or refresh the page</p>
+                {/* <img src="meriise.png" className="h-10 w-20 text-center items-center" alt="" /> */}
             </form>
         </div>
     );

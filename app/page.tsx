@@ -78,7 +78,7 @@ export default function App() {
 
     const fetchQuestions = async () => {
       const shuffledQuestions = [...mockQuestions].sort(() => Math.random() - 0.5);
-      const selectedQuestions = shuffledQuestions.slice(0, 10);
+      const selectedQuestions = shuffledQuestions.slice(0, 15);
 
       setTimeout(() => {
         // 3. Set the 10 selected questions into state
