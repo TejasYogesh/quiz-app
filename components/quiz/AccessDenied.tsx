@@ -45,7 +45,7 @@ export const AccessDenied = () => {
                 {/* Link Button */}
                 <div className="flex flex-row lg:flex-row justify-center gap-4 mb-6">
                     <a
-                    href="meriise.org"
+                    href="https://meriise.org/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-transform transform hover:-translate-y-1 duration-300 ease-in-out"
