@@ -55,12 +55,12 @@ export const mockQuestions: Question[] = [
   },
   {
     id: 5,
-    question_text: "The bionic hand developed by PSYONIC is called:",
+    question_text: "Who founded Zerodha?",
     options: [
-      { text: "Ability Hand", isCorrect: true },
-      { text: "Robo Hand", isCorrect: false },
-      { text: "Smart Hand", isCorrect: false },
-      { text: "Power Hand", isCorrect: false }
+      { text: "Ritesh Agarwal & Binny Bansal", isCorrect: false },
+      { text: "Nithin Kamath & Nikhil Kamath", isCorrect: true },
+      { text: "Bhavish Aggarwal & Ankit Bhati", isCorrect: false },
+      { text: "Vijay Shekhar Sharma & Kunal Shah", isCorrect: false }
     ]
   },
   {
@@ -85,12 +85,12 @@ export const mockQuestions: Question[] = [
   },
   {
     id: 8,
-    question_text: "Biocon is India’s first company to manufacture which product?",
+    question_text: "What is the name of Google’s latest AI video tool (launched at Google I/O 2025)?",
     options: [
-      { text: "Insulin", isCorrect: true },
-      { text: "Vaccines", isCorrect: false },
-      { text: "Antibiotics", isCorrect: false },
-      { text: "Painkillers", isCorrect: false }
+      { text: "VideoFX", isCorrect: false },
+      { text: "Flow", isCorrect: true },
+      { text: "Veo 2", isCorrect: false },
+      { text: "Imagen Video", isCorrect: false }
     ]
   },
   {
@@ -135,22 +135,22 @@ export const mockQuestions: Question[] = [
   },
   {
     id: 13,
-    question_text: "Peyush Bansal also appeared as an investor on which popular Indian TV show?",
+    question_text: "Which company released the first Android-powered smartphone?",
     options: [
-      { text: "Shark Tank India", isCorrect: true },
-      { text: "Dragons’ Den India", isCorrect: false },
-      { text: "The Apprentice India", isCorrect: false },
-      { text: "Business Baazigar", isCorrect: false }
+      { text: "Samsung", isCorrect: false },
+      { text: "HTC", isCorrect: true },
+      { text: "Nokia", isCorrect: false },
+      { text: "LG", isCorrect: false }
     ]
   },
   {
     id: 14,
-    question_text: "Falguni Nayar’s leadership style is often described as:",
+    question_text: "What is the name of Apple’s annual event where it announces new iPhones, Apple Watches, and other products?",
     options: [
-      { text: "Risk-averse", isCorrect: false },
-      { text: "Bold and customer-focused", isCorrect: true },
-      { text: "Technical only", isCorrect: false },
-      { text: "Traditional and slow", isCorrect: false }
+      { text: "Apple Tech Day", isCorrect: false },
+      { text: "Apple September Event", isCorrect: false },
+      { text: "Apple Worldwide Developers Conference (WWDC)", isCorrect: true },
+      { text: "Apple Innovation Fest", isCorrect: false }
     ]
   },
   {
@@ -175,12 +175,12 @@ export const mockQuestions: Question[] = [
   },
   {
     id: 17,
-    question_text: "Kiran Mazumdar-Shaw’s company Biocon is a pioneer in:",
+    question_text: "Who are the founders of Google?",
     options: [
-      { text: "Software development", isCorrect: false },
-      { text: "Agricultural chemicals", isCorrect: false },
-      { text: "Biopharmaceuticals", isCorrect: true },
-      { text: "Heavy machinery", isCorrect: false }
+      { text: "Steve Jobs & Steve Wozniak", isCorrect: false },
+      { text: "Larry Page & Sergey Brin", isCorrect: true },
+      { text: "Bill Gates & Paul Allen", isCorrect: false },
+      { text: "Jeff Bezos & Andy Jassy", isCorrect: false }
     ]
   },
   {
@@ -195,12 +195,12 @@ export const mockQuestions: Question[] = [
   },
   {
     id: 19,
-    question_text: "Biocon is known globally for manufacturing:",
+    question_text: "Who are the founders of Adobe Inc.?",
     options: [
-      { text: "Consumer electronics", isCorrect: false },
-      { text: "Generic drugs and biosimilars", isCorrect: true },
-      { text: "Agricultural products", isCorrect: false },
-      { text: "Industrial equipment", isCorrect: false }
+      { text: "Bill Gates and Paul Allen", isCorrect: false },
+      { text: "Charles Geschke and John Warnock", isCorrect: true },
+      { text: "Steve Jobs and Steve Wozniak", isCorrect: false },
+      { text: "Larry Page and Sergey Brin", isCorrect: false }
     ]
   },
   {
@@ -305,22 +305,22 @@ export const mockQuestions: Question[] = [
   },
   {
     id: 30,
-    question_text: "How can reflecting on failures during the design thinking process be beneficial?",
+    question_text: "What is the full form of AWS?",
     options: [
-      { text: "It lowers team morale", isCorrect: false },
-      { text: "It helps identify gaps and opportunities for improvement", isCorrect: true },
-      { text: "It wastes time and resources", isCorrect: false },
-      { text: "It’s unnecessary if the final result is successful", isCorrect: false }
+      { text: "Advanced Web Software", isCorrect: false },
+      { text: "Amazon Web Services", isCorrect: true },
+      { text: "Application Wide System", isCorrect: false },
+      { text: "Automatic Web Solution", isCorrect: false }
     ]
   },
   {
     id: 31,
-    question_text: "Friend not contributing in startup. Best step?",
+    question_text: "Which of the following is NOT a startup founded in India?",
     options: [
-      { text: "Ignore", isCorrect: false },
-      { text: "End friendship", isCorrect: false },
-      { text: "Set clear roles", isCorrect: true },
-      { text: "Do all work yourself", isCorrect: false }
+      { text: "Paytm", isCorrect: false },
+      { text: "Swiggy", isCorrect: false },
+      { text: "Shopify", isCorrect: true },
+      { text: "Ola", isCorrect: false }
     ]
   },
   {
@@ -345,22 +345,22 @@ export const mockQuestions: Question[] = [
   },
   {
     id: 34,
-    question_text: "The Elevator Pitch Test: If you meet an investor in an elevator and have 15 seconds to impress, what should you focus on?",
+    question_text: "At what time does the regular trading session of Indian stock markets (BSE & NSE) begin?",
     options: [
-      { text: "Your product’s features", isCorrect: false },
-      { text: "The size of the problem you are solving", isCorrect: true },
-      { text: "The money you need", isCorrect: false },
-      { text: "Your GPA and achievements", isCorrect: false }
+      { text: "9:00 AM", isCorrect: false },
+      { text: "9:15 AM", isCorrect: true },
+      { text: "10:45 AM", isCorrect: false },
+      { text: "8:45 AM", isCorrect: false }
     ]
   },
   {
     id: 35,
-    question_text: "Your startup earns ₹10,000 this month. Expenses = ₹7,500. But your customers pay you next month. What’s the main challenge here?",
+    question_text: "Which is the oldest stock exchange in India?",
     options: [
-      { text: "Profitability", isCorrect: false },
-      { text: "Cash flow", isCorrect: true },
-      { text: "Product-market fit", isCorrect: false },
-      { text: "Competition", isCorrect: false }
+      { text: "NSE (National Stock Exchange)", isCorrect: false },
+      { text: "BSE (Bombay Stock Exchange)", isCorrect: true },
+      { text: "MCX (Multi Commodity Exchange)", isCorrect: false },
+      { text: "NSE IFSC", isCorrect: false }
     ]
   }
 ];
