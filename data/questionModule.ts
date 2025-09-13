@@ -11,7 +11,7 @@ export interface Question {
   options: Option[];
 }
 
-// Export the array of mock questions (from VISION HUNT PDF)
+// Export the array of mock questions
 export const mockQuestions: Question[] = [
   {
     id: 1,
@@ -221,6 +221,146 @@ export const mockQuestions: Question[] = [
       { text: "Falguni Nayar and Peyush Bansal", isCorrect: true },
       { text: "Dr. Aadeel Akhtar only", isCorrect: false },
       { text: "All of them", isCorrect: false }
+    ]
+  },
+  {
+    id: 22,
+    question_text: "If you could solve any global problem through a startup, which one would likely have the biggest impact?",
+    options: [
+      { text: "Climate change and renewable energy", isCorrect: false },
+      { text: "Healthcare accessibility", isCorrect: false },
+      { text: "Affordable education", isCorrect: false },
+      { text: "All of the above", isCorrect: true }
+    ]
+  },
+  {
+    id: 23,
+    question_text: "What is the most important thing in a startup pitch?",
+    options: [
+      { text: "Explaining technical details", isCorrect: false },
+      { text: "Showing how the idea solves a real problem", isCorrect: true },
+      { text: "Highlighting how much money you’ve raised", isCorrect: false },
+      { text: "Criticizing competitors", isCorrect: false }
+    ]
+  },
+  {
+    id: 24,
+    question_text: "What is “design thinking” most focused on?",
+    options: [
+      { text: "Making things look visually attractive", isCorrect: false },
+      { text: "Understanding user needs and solving problems creatively", isCorrect: true },
+      { text: "Copying competitor designs", isCorrect: false },
+      { text: "Increasing production speed only", isCorrect: false }
+    ]
+  },
+  {
+    id: 25,
+    question_text: "Why are prototypes important in design thinking?",
+    options: [
+      { text: "They make the final product perfect from the start", isCorrect: false },
+      { text: "They allow testing ideas quickly and learning from mistakes", isCorrect: true },
+      { text: "They increase costs and slow down the process", isCorrect: false },
+      { text: "They are only used for marketing purposes", isCorrect: false }
+    ]
+  },
+  {
+    id: 26,
+    question_text: "During testing in design thinking, what should teams focus on?",
+    options: [
+      { text: "Avoiding changes to the product", isCorrect: false },
+      { text: "Learning from user feedback and improving the solution", isCorrect: true },
+      { text: "Selling as many products as possible", isCorrect: false },
+      { text: "Keeping the process confidential", isCorrect: false }
+    ]
+  },
+  {
+    id: 27,
+    question_text: "If you’re stuck in the ‘Ideate’ phase, what’s the best way to move forward?",
+    options: [
+      { text: "Pick the first idea and start building", isCorrect: false },
+      { text: "Brainstorm with others and look at the problem from different angles", isCorrect: true },
+      { text: "Ignore the issue and proceed anyway", isCorrect: false },
+      { text: "Copy a competitor’s idea", isCorrect: false }
+    ]
+  },
+  {
+    id: 28,
+    question_text: "What is the main purpose of observing users in their natural environment during the ‘Empathize’ phase?",
+    options: [
+      { text: "To judge their choices", isCorrect: false },
+      { text: "To understand how they interact with products and what challenges they face", isCorrect: true },
+      { text: "To collect data for advertisements", isCorrect: false },
+      { text: "To compare them with other user groups", isCorrect: false }
+    ]
+  },
+  {
+    id: 29,
+    question_text: "What’s a sign that a team is stuck during the Ideate phase?",
+    options: [
+      { text: "They are generating a variety of ideas", isCorrect: false },
+      { text: "They keep discussing the same idea without exploring others", isCorrect: true },
+      { text: "They are using visuals like sketches", isCorrect: false },
+      { text: "They are testing prototypes frequently", isCorrect: false }
+    ]
+  },
+  {
+    id: 30,
+    question_text: "How can reflecting on failures during the design thinking process be beneficial?",
+    options: [
+      { text: "It lowers team morale", isCorrect: false },
+      { text: "It helps identify gaps and opportunities for improvement", isCorrect: true },
+      { text: "It wastes time and resources", isCorrect: false },
+      { text: "It’s unnecessary if the final result is successful", isCorrect: false }
+    ]
+  },
+  {
+    id: 31,
+    question_text: "Friend not contributing in startup. Best step?",
+    options: [
+      { text: "Ignore", isCorrect: false },
+      { text: "End friendship", isCorrect: false },
+      { text: "Set clear roles", isCorrect: true },
+      { text: "Do all work yourself", isCorrect: false }
+    ]
+  },
+  {
+    id: 32,
+    question_text: "Before building a product, what’s the BEST way to validate an idea?",
+    options: [
+      { text: "Build the full product", isCorrect: false },
+      { text: "Run ads or surveys to test demand", isCorrect: true },
+      { text: "Ask only friends", isCorrect: false },
+      { text: "Pitch to investors immediately", isCorrect: false }
+    ]
+  },
+  {
+    id: 33,
+    question_text: "Which is more important for a growing startup?",
+    options: [
+      { text: "Revenue only", isCorrect: false },
+      { text: "Profit only", isCorrect: false },
+      { text: "Customer retention", isCorrect: true },
+      { text: "Fancy office", isCorrect: false }
+    ]
+  },
+  {
+    id: 34,
+    question_text: "The Elevator Pitch Test: If you meet an investor in an elevator and have 15 seconds to impress, what should you focus on?",
+    options: [
+      { text: "Your product’s features", isCorrect: false },
+      { text: "The size of the problem you are solving", isCorrect: true },
+      { text: "The money you need", isCorrect: false },
+      { text: "Your GPA and achievements", isCorrect: false }
+    ]
+  },
+  {
+    id: 35,
+    question_text: "Your startup earns ₹10,000 this month. Expenses = ₹7,500. But your customers pay you next month. What’s the main challenge here?",
+    options: [
+      { text: "Profitability", isCorrect: false },
+      { text: "Cash flow", isCorrect: true },
+      { text: "Product-market fit", isCorrect: false },
+      { text: "Competition", isCorrect: false }
     ]
   }
 ];
