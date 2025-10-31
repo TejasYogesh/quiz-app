@@ -97,7 +97,7 @@ export default function App() {
   const handleNextQuestion = useCallback(() => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prevIndex => prevIndex + 1);
-      setTimeLeft(10);
+      setTimeLeft(15);
     } else {
       setQuizState('finished');
       localStorage.setItem('quizAttempted', 'true');
