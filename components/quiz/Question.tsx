@@ -60,7 +60,7 @@ export const Question = ({ question, onAnswer, questionNumber, totalQuestions, t
             {/* Progress Bar */}
             <div className="mb-8">
                 <div
-                    style={{ width: `${(timeLeft / 15) * 100}%` }}
+                    style={{ width: `${(timeLeft / 10) * 100}%` }}
                     className={`h-4 lg:h-6 rounded-full transition-all duration-1000 linear ${timeLeft > 5 ? 'bg-blue-500' : 'bg-red-500'
                         }`}
                 ></div>

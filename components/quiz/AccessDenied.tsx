@@ -85,10 +85,10 @@ export const AccessDenied = () => {
                                 <CalendarIcon className="w-6 h-6 text-blue-600 dark:text-blue-300" />
                             </div>
                             <div>
-                                <p className="text-lg font-bold text-blue-800 dark:text-blue-200">MCE-Internal SIH 2025</p>
-                                <p className="text-sm font-bold text-blue-800 dark:text-blue-200">INFUSION 4.0</p>
-                                <p className="text-sm text-gray-600 dark:text-gray-300">Smart India Hackathon</p>
-                                <button className="bg-blue-500 text-white p-2 text-sm mt-4 rounded-md cursor-pointer transition-transform transform hover:-translate-y-1 duration-300 ease-in-out"><a href="https://forms.gle/JnSPQ1NDezjjvJLW8">Register here</a></button>
+                                <p className="text-lg font-bold text-blue-800 dark:text-blue-200">Pragyatha 2025</p>
+                                {/* <p className="text-sm font-bold text-blue-800 dark:text-blue-200">INFUSION 4.0</p> */}
+                                {/* <p className="text-sm text-gray-600 dark:text-gray-300">Smart India Hackathon</p> */}
+                                <button className="bg-blue-500 text-white p-2 text-sm mt-4 rounded-md cursor-pointer transition-transform transform hover:-translate-y-1 duration-300 ease-in-out"><a href="https://pragyatha25.meriise.org">Register here</a></button>
                             </div>
                         </div>
                         

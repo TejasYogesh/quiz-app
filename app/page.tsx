@@ -97,7 +97,7 @@ export default function App() {
   const handleNextQuestion = useCallback(() => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prevIndex => prevIndex + 1);
-      setTimeLeft(15);
+      setTimeLeft(10);
     } else {
       setQuizState('finished');
       localStorage.setItem('quizAttempted', 'true');
@@ -163,23 +163,7 @@ export default function App() {
       console.log('Score updated successfully:', data);
 
     }
-    const templateParams = {
-      to_name: data?.[0]?.name ?? user.name,
-      score: score.toString,
-      to_email: user.email,
-    };
 
-    try {
-      await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        templateParams,
-        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! }
-      );
-      console.log('EmailJS Success: Thank you email sent.');
-    } catch (emailError) {
-      console.error('EmailJS Error:', emailError);
-    }
 
   };
   const renderContent = () => {

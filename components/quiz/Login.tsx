@@ -62,6 +62,10 @@ export const Login = ({ onLogin }: LoginProps) => {
                     .select();
 
                 if (insertError) throw insertError;
+                const userData = { name, college, usn, email };
+                localStorage.setItem('userData', JSON.stringify(userData));
+                // Also set a flag so page.tsx can proceed if needed
+                localStorage.setItem('userEntered', 'true');
 
                 if (data && data.length > 0) {
                     onLogin({ name, college, usn, email, status: 'success' });

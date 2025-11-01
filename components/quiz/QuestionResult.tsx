@@ -7,6 +7,10 @@ import { LoadingSecond } from "./LoadingSecond";
 interface QuizResultProps {
   score: number;
   onFeedbackSubmit: (feedback: string) => void;
+   user?: {
+    name: string;
+    email: string;
+  };
 }
 
 // Use the QuizResultProps interface to correctly type the component's props
@@ -15,16 +19,62 @@ export const QuizResult = ({ score, onFeedbackSubmit }: QuizResultProps) => {
     const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      const getStoredUser = () => {
+      try {
+        const raw = localStorage.getItem('userData');
+        if (!raw) return null;
+        return JSON.parse(raw) as { name: string; email: string; college?: string; usn?: string };
+      } catch (e) {
+        console.error('Failed to parse userData from localStorage', e);
+        return null;
+      }
+    };
+
+     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!feedback.trim()) return;
-        setIsSubmitting(true);
-        onFeedbackSubmit(feedback);
 
-        setTimeout(() => {
+        setIsSubmitting(true);
+
+        // Prefer prop user if provided, otherwise read from localStorage
+        const stored = getStoredUser();
+        if (!stored || !stored.email) {
+            console.error('No user email available to send the email.');
             setIsSubmitting(false);
+            return;
+        }
+
+        try {
+            // 1) Call your /api/send route to trigger email (name & email)
+            const resp = await fetch('/api/send', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  name: stored.name,
+                  email: stored.email,
+                  // optionally include feedback if your route accepts it:
+                  feedback
+                })
+            });
+
+            const result = await resp.json().catch(() => ({}));
+            if (!resp.ok) {
+                console.error('Send API error:', result);
+            } else {
+                console.log('Email send result:', result);
+            }
+
+            // 2) Call parent feedback handler (updates DB etc)
+            await onFeedbackSubmit(feedback);
+
             setFeedbackSubmitted(true);
-        }, 10000); // 10-second loader display
+            // mark submitted in localStorage so you can show AccessDenied later
+            localStorage.setItem('feedbackSubmitted', 'true');
+        } catch (err) {
+            console.error('Error sending feedback/email:', err);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     if (isSubmitting) {
