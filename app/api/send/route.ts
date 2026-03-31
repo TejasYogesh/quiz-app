@@ -113,27 +113,32 @@ export async function POST(request: Request) {
     `;
 
     // --- 3. SEND THE EMAIL WITH ATTACHMENT ---
+    // Convert buffer to base64 for Resend API
+    const base64Content = pdfBuffer.toString("base64");
+
     const { data, error } = await resend.emails.send({
       from: "visionhunt@meriise.org",
       to: email,
       subject: "Thank you for participating in the Vision Hunt Quiz!",
       html: emailHtml,
 
-      // Add the attachments array
+      // Add the attachments array with base64-encoded content
       attachments: [
         {
           filename: pdfFileName, // The name the recipient will see
-          content: pdfBuffer, // The file content as a Buffer
+          content: base64Content, // Base64-encoded content
         },
       ],
     });
 
     if (error) {
+      console.error("Resend API Error:", error);
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 
     return NextResponse.json({ data });
   } catch (error) {
+    console.error("Send email error:", error);
     if (error instanceof Error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
