@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import fs from "fs/promises"; // Use 'fs/promises' for async/await
-import path from "path";
+import { generateAnswerKeyPdf } from "@/lib/generateAnswerKeyPdf";
 
 export async function POST(request: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY);
@@ -16,25 +15,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
-    // --- 1. READ THE PDF FILE ---
-    // IMPORTANT: Replace 'your-file-name.pdf' with the actual name of your PDF
-    const pdfFileName = "Pragyatha2k25-Rulebook.pdf";
-
-    // Construct the full path to the file in the 'public' directory
-    const filePath = path.join(process.cwd(), "public", pdfFileName);
+    // --- 1. GENERATE THE ANSWER KEY PDF ---
+    const pdfFileName = "Vision-Hunt-Quiz-Answer-Key.pdf";
 
     let pdfBuffer: Buffer;
     try {
-      // Read the file into a buffer
-      pdfBuffer = await fs.readFile(filePath);
-    } catch (readError) {
-      console.error(
-        `Error reading attachment file from ${filePath}:`,
-        readError
-      );
-      // If the file isn't found or readable, return a server error
+      pdfBuffer = await generateAnswerKeyPdf("Vision Hunt Quiz");
+    } catch (genError) {
+      console.error("Error generating answer key PDF:", genError);
       return NextResponse.json(
-        { error: "Server error: Could not read attachment file." },
+        { error: "Server error: Could not generate answer key PDF." },
         { status: 500 }
       );
     }
@@ -66,10 +56,10 @@ export async function POST(request: Request) {
                     </p>
                    <div style="background-color: #f8f9fa; border-left: 4px solid #007bff; padding: 15px; margin: 20px 0;">
                       <p style="font-size: 16px; margin: 0;">
-                        <span style="color: #007bff; font-weight: 700; font-size: 18px;">Pragyatha 2025</span> 
+                        <span style="color: #007bff; font-weight: 700; font-size: 18px;">Pragyatha 2025</span>
                          is a national-level entrepreneurial fest conducted annually.
                          <span style="background-color: #fff3cd; padding: 2px 6px; border-radius: 4px; color: #856404; font-weight: 600;">
-                        The rulebook for the event is attached below
+                        The quiz questions and answer key are attached below
                         </span>
                         — please take a look and register soon!
                      </p>
