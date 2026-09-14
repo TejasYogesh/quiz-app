@@ -4,9 +4,7 @@ import { generateAnswerKeyPdf } from "@/lib/generateAnswerKeyPdf";
 
 export async function POST(request: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY);
-  const siteUrl = "https://quiz-app-fux3.vercel.app";
-  const bannerUrl = `${siteUrl}/finalScreening.png`;
-  const downloadUrl = `${siteUrl}/api/answer-key`;
+  const bannerUrl = "https://quiz-app-fux3.vercel.app/finalScreening.png";
 
   try {
     // Get data from request body
@@ -80,17 +78,12 @@ export async function POST(request: Request) {
                     <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px;">
                       <tr>
                         <td style="padding: 16px 20px;">
-                          <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                          <table border="0" cellpadding="0" cellspacing="0">
                             <tr>
                               <td style="font-size: 28px; padding-right: 14px;" valign="middle">&#128196;</td>
                               <td valign="middle">
                                 <p style="margin: 0; font-size: 15px; font-weight: 600; color: #111;">${pdfFileName}</p>
-                                <p style="margin: 2px 0 0; font-size: 13px; color: #888888;">Quiz questions &amp; answer key</p>
-                              </td>
-                              <td valign="middle" align="right">
-                                <a href="${downloadUrl}" target="_blank" style="color: #ffffff; text-decoration: none; font-size: 13px; font-weight: bold; padding: 10px 18px; background-color: #007bff; border-radius: 6px; display: inline-block;">
-                                  Download
-                                </a>
+                                <p style="margin: 2px 0 0; font-size: 13px; color: #888888;">Quiz questions &amp; answer key &mdash; attached to this email</p>
                               </td>
                             </tr>
                           </table>
