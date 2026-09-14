@@ -6,6 +6,20 @@ const PAGE_HEIGHT = 841.89;
 const MARGIN = 50;
 const MAX_WIDTH = PAGE_WIDTH - MARGIN * 2;
 
+// ponytail: WinAnsi (the standard font encoding) can't render arbitrary unicode
+// (emoji, checkmarks, etc). Map common smart punctuation to ASCII, then drop
+// anything else unsupported so a future question with a stray symbol doesn't
+// crash PDF generation.
+const PUNCT_MAP: Record<string, string> = {
+  "‘": "'", "’": "'", "“": '"', "”": '"',
+  "–": "-", "—": "-", "…": "...",
+};
+function sanitize(text: string): string {
+  return Array.from(text)
+    .map((ch) => PUNCT_MAP[ch] ?? (ch.codePointAt(0)! <= 0xff ? ch : "?"))
+    .join("");
+}
+
 function wrapText(text: string, font: PDFFont, size: number, maxWidth: number): string[] {
   const words = text.split(" ");
   const lines: string[] = [];
@@ -60,7 +74,7 @@ export async function generateAnswerKeyPdf(quizName: string): Promise<Buffer> {
   y -= 30;
 
   mockQuestions.forEach((q, index) => {
-    const questionLines = wrapText(`${index + 1}. ${q.question_text}`, boldFont, 12, MAX_WIDTH);
+    const questionLines = wrapText(sanitize(`${index + 1}. ${q.question_text}`), boldFont, 12, MAX_WIDTH);
     ensureSpace(questionLines.length * 16 + q.options.length * 14 + 16);
 
     for (const line of questionLines) {
@@ -69,8 +83,8 @@ export async function generateAnswerKeyPdf(quizName: string): Promise<Buffer> {
     }
 
     for (const opt of q.options) {
-      const prefix = opt.isCorrect ? "✓ " : "   ";
-      const optLines = wrapText(`${prefix}${opt.text}`, font, 11, MAX_WIDTH - 15);
+      const prefix = opt.isCorrect ? "[Correct] " : "";
+      const optLines = wrapText(sanitize(`${prefix}${opt.text}`), font, 11, MAX_WIDTH - 15);
       for (const line of optLines) {
         ensureSpace(14);
         page.drawText(line, {

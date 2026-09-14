@@ -4,7 +4,9 @@ import { generateAnswerKeyPdf } from "@/lib/generateAnswerKeyPdf";
 
 export async function POST(request: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY);
-  const websiteLink = "https://pragyatha25.meriise.org"; // Example link for the button
+  const siteUrl = "https://quiz-app-fux3.vercel.app";
+  const bannerUrl = `${siteUrl}/finalScreening.png`;
+  const downloadUrl = `${siteUrl}/api/answer-key`;
 
   try {
     // Get data from request body
@@ -39,15 +41,21 @@ export async function POST(request: Request) {
               <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
                 
                 <tr>
-                  <td align="center" style="background-color: #004a99; padding: 40px 20px;">
-                    <h1 style="color: #ffffff; font-size: 28px; font-weight: 600; margin: 0;">
-                      Vision Hunt Quiz
-                    </h1>
+                  <td align="center" background="${bannerUrl}" style="background-image: url('${bannerUrl}'); background-size: cover; background-position: center; background-repeat: no-repeat; background-color: #0a0118; padding: 60px 30px;">
+                    <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%" style="max-width: 440px; background-color: rgba(10, 5, 30, 0.55); border-radius: 16px;">
+                      <tr>
+                        <td align="center" style="padding: 32px 40px;">
+                          <h1 style="color: #ffffff; font-size: 26px; font-weight: 800; line-height: 1.3; margin: 0;">
+                            Vision Hunt Quiz
+                          </h1>
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
 
                 <tr>
-                  <td style="padding: 40px 30px 30px 30px; color: #333333; line-height: 1.7;">
+                  <td style="padding: 40px 30px 30px 30px; color: #333333; line-height: 1.7; background-color: #f8fafc;">
                     <h2 style="color: #111; font-weight: 500; font-size: 22px; margin: 0 0 20px;">
                       Hello ${name},
                     </h2>
@@ -64,15 +72,24 @@ export async function POST(request: Request) {
                         — please take a look and register soon!
                      </p>
                   </div>
+                  </td>
+                </tr>
 
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td style="padding: 0 30px 30px 30px; background-color: #f8fafc;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px;">
                       <tr>
-                        <td align="center">
-                          <table border="0" cellpadding="0" cellspacing="0">
+                        <td style="padding: 16px 20px;">
+                          <table border="0" cellpadding="0" cellspacing="0" width="100%">
                             <tr>
-                              <td align="center" style="background-color: #007bff; border-radius: 8px;">
-                                <a href="${websiteLink}" target="_blank" style="color: #ffffff; text-decoration: none; font-size: 16px; font-weight: bold; padding: 14px 28px; border: 1px solid #007bff; border-radius: 8px; display: inline-block;">
-                                  Visit Pragyatha 2025
+                              <td style="font-size: 28px; padding-right: 14px;" valign="middle">&#128196;</td>
+                              <td valign="middle">
+                                <p style="margin: 0; font-size: 15px; font-weight: 600; color: #111;">${pdfFileName}</p>
+                                <p style="margin: 2px 0 0; font-size: 13px; color: #888888;">Quiz questions &amp; answer key</p>
+                              </td>
+                              <td valign="middle" align="right">
+                                <a href="${downloadUrl}" target="_blank" style="color: #ffffff; text-decoration: none; font-size: 13px; font-weight: bold; padding: 10px 18px; background-color: #007bff; border-radius: 6px; display: inline-block;">
+                                  Download
                                 </a>
                               </td>
                             </tr>

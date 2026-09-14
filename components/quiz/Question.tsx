@@ -41,7 +41,7 @@ export const Question = ({ question, onAnswer, questionNumber, totalQuestions, t
     };
 
     return (
-        <div className='lg:shadow-2xl lg:rounded-3xl lg:p-10 p-2'>
+        <div className='lg:rounded-3xl lg:p-10 p-2'>
 
             <div className="flex justify-between items-start mb-8">
                 {/* Question Text */}
@@ -52,7 +52,7 @@ export const Question = ({ question, onAnswer, questionNumber, totalQuestions, t
                 </div>
 
                 {/* Timer Box */}
-                <div className="bg-green-300 rounded-full h-15 w-15 lg:h-20 lg:w-20 flex items-center justify-center shadow-md">
+                <div className="bg-green-300 rounded-full h-15 w-15 lg:h-20 lg:w-20 flex items-center justify-center shadow-md lg:shadow-none">
                     <span className="text-3xl font-bold text-green-700">{timeLeft}</span>
                 </div>
             </div>
